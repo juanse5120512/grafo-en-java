@@ -15,9 +15,9 @@ public class Main {
         grafo.agregarArco(2, 4, 100);
         grafo.agregarArco(1, 5, 140);
 
-        ServicioDFS servicio = new ServicioDFS(grafo);
+        ServicioBFS servicio = new ServicioBFS(grafo);
 
-        List<Integer> resultado = servicio.dfsForest();
+        List<Integer> resultado = servicio.bfsForest();
 
         System.out.println(resultado);
     }
