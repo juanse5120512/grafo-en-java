@@ -1,5 +1,8 @@
+package servicios;
 
 import java.util.*;
+
+import grafo.Grafo;
 
 public class ServicioBFS {
 	private Grafo<?> grafo;
