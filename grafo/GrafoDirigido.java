@@ -41,14 +41,16 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public void borrarArco(int verticeId1, int verticeId2) {
 		if (nodos.containsKey(verticeId1) && nodos.containsKey(verticeId2)) {
 			ArrayList<Arco<T>> arcos = nodos.get(verticeId1);
-			for (Arco<T> arco : arcos) {
+			Iterator<Arco<T>> it = arcos.iterator();
+			while (it.hasNext()) {
+				Arco<T> arco = it.next();
 				if (arco.getVerticeOrigen() == verticeId1 && arco.getVerticeDestino() == verticeId2) {
-					arcos.remove(arco);
+					it.remove();
 				}
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean contieneVertice(int verticeId) {
 		return nodos.containsKey(verticeId);
