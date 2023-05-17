@@ -1,4 +1,5 @@
 package grafo;
+
 public class Arco<T> {
 
 	private int verticeOrigen;

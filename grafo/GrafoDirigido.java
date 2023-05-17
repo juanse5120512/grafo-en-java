@@ -1,4 +1,5 @@
 package grafo;
+
 import java.util.*;
 
 public class GrafoDirigido<T> implements Grafo<T> {
@@ -14,11 +15,19 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 	}
 
+	// El metodo agregarVertice() tendra una complejidad computacional de O(1) ya
+	// que
+	// no presenta bucles ni iteraciones
+	// que puedan influir en la complejidad del mismo.
 	@Override
 	public void agregarVertice(int verticeId) {
 		nodos.putIfAbsent(verticeId, new ArrayList<>());
 	}
 
+	// El método borrarVerice() tendra una complejidad computacional de O(|V|), ya
+	// que
+	// en el peor de los casos
+	// recorrera todos los vertices y cada uno de sus arcos.
 	@Override
 	public void borrarVertice(int verticeId) {
 		nodos.remove(verticeId);
@@ -27,6 +36,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 	}
 
+	// El metodo agregarArco() tendra una complejidad computacional de O(1) ya que
+	// no
+	// presenta bucles ni iteraciones
+	// que puedan influir en la complejidad del mismo.
 	@Override
 	public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
 		if (nodos.containsKey(verticeId1) && nodos.containsKey(verticeId2)) {
@@ -37,6 +50,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 	}
 
+	// El método borrarArco() presenta un complejidad O(|A|), ya que en el peor de
+	// los
+	// casos recorrerá el total de arcos del vertice origen.
 	@Override
 	public void borrarArco(int verticeId1, int verticeId2) {
 		if (nodos.containsKey(verticeId1) && nodos.containsKey(verticeId2)) {
@@ -50,12 +66,19 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			}
 		}
 	}
-	
+
+	// El metodo contieneVertice() tendra una complejidad computacional de O(1) ya
+	// que
+	// no presenta bucles ni iteraciones
+	// que puedan influir en la complejidad del mismo.
 	@Override
 	public boolean contieneVertice(int verticeId) {
 		return nodos.containsKey(verticeId);
 	}
 
+	// El método existeArco() presenta un complejidad O(|A|), ya que en el peor de
+	// los
+	// casos recorrerá el total de arcos del vertice origen.
 	@Override
 	public boolean existeArco(int verticeId1, int verticeId2) {
 		if (nodos.containsKey(verticeId1) && nodos.containsKey(verticeId2)) {
@@ -69,6 +92,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return false;
 	}
 
+	// El método obtenerArco() presenta un complejidad O(|A|), ya que en el peor de
+	// los casos recorrerá el total de arcos del vertice origen.
 	@Override
 	public Arco<T> obtenerArco(int verticeId1, int verticeId2) {
 		if (nodos.containsKey(verticeId1) && nodos.containsKey(verticeId2)) {
@@ -83,11 +108,16 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return null;
 	}
 
+	// El metodo cantidadVertices() tendra una complejidad computacional de O(1) ya
+	// que no presenta bucles ni iteraciones
+	// que puedan influir en la complejidad del mismo.
 	@Override
 	public int cantidadVertices() {
 		return nodos.size();
 	}
 
+	// La complejidad del metodo cantidadArcos() seria O(V + A), donde V es la
+	// cantidad de vertices y A la cantidad de arcos.
 	@Override
 	public int cantidadArcos() {
 		int cantidadArcos = 0;
@@ -101,11 +131,15 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return cantidadArcos;
 	}
 
+	// El método obtenerVertices() tiene una complejidad de O(V), donde V es la
+	// cantidad de vértices en el grafo.
 	@Override
 	public Iterator<Integer> obtenerVertices() {
 		return nodos.keySet().iterator();
 	}
 
+	// El método obtenerAdyacentes() tiene una complejidad de O(A) en el peor caso,
+	// donde A es la cantidad de arcos adyacentes al vértice especificado.
 	@Override
 	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
 		ArrayList<Arco<T>> adyacentes = nodos.get(verticeId);
@@ -119,6 +153,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return destinos.iterator();
 	}
 
+	// El método obtenerArcos() tiene una complejidad de tiempo de O(|A|), donde A
+	// es
+	// la cantidad total de arcos en el grafo.
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
 		Set<Integer> keys = nodos.keySet();
@@ -130,6 +167,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return arcos.iterator();
 	}
 
+	// El método obtenerArcos() tiene una complejidad de tiempo de O(A), donde A es
+	// la
+	// cantidad total de arcos del vertice especificado por parametro.
 	@Override
 	public Iterator<Arco<T>> obtenerArcos(int verticeId) {
 		ArrayList<Arco<T>> arcos = nodos.get(verticeId);

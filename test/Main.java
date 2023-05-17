@@ -14,12 +14,16 @@ public class Main {
         grafo.agregarVertice(3);
         grafo.agregarVertice(4);
         grafo.agregarVertice(5);
+        grafo.agregarVertice(6);
 
         grafo.agregarArco(1, 2, 90);
         grafo.agregarArco(2, 3, 233);
         grafo.agregarArco(2, 4, 100);
         grafo.agregarArco(1, 5, 140);
         grafo.agregarArco(5, 4, 2131);
+        grafo.agregarArco(3, 6, 3452);
+        grafo.agregarArco(6, 4, 2345);
+        grafo.agregarArco(3, 4, 2376);
 
         System.out.println("");
         System.out.println("TPE PROGRMACION 3: ");
@@ -88,7 +92,7 @@ public class Main {
         System.out.println(servicioDFS.dfsForest());
 
         System.out.println("CAMINOS POSIBLES ENTRE N Y X (1 Y 4), CON LIMITE 3: ");
-        ServicioCaminos servicioCaminos = new ServicioCaminos(grafo, 1, 4, 4);
+        ServicioCaminos servicioCaminos = new ServicioCaminos(grafo, 1, 4, 3);
         System.out.println(servicioCaminos.caminos());
 
         System.out.println("");

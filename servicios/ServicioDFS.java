@@ -1,4 +1,5 @@
 package servicios;
+
 import java.util.*;
 
 import grafo.Grafo;
@@ -13,12 +14,12 @@ public class ServicioDFS {
 
     public List<Integer> dfsForest() {
         Set<Integer> visitados = new HashSet<>();
-        List<Integer> finalizados =  new ArrayList<>();
+        List<Integer> finalizados = new ArrayList<>();
         List<Integer> auxFinalizados = new ArrayList<>();
         Iterator<Integer> it = this.grafo.obtenerVertices();
         while (it.hasNext()) {
             int vertice = it.next();
-            if(!visitados.contains(vertice)){
+            if (!visitados.contains(vertice)) {
                 auxFinalizados = dfs(vertice, visitados);
                 finalizados.addAll(auxFinalizados);
             }
@@ -32,7 +33,7 @@ public class ServicioDFS {
         visitados.add(u);
         while (it.hasNext()) {
             int vertice = it.next();
-            if(!visitados.contains(vertice)){
+            if (!visitados.contains(vertice)) {
                 List<Integer> resultadoTemporal = dfs(vertice, visitados);
                 finalizados.addAll(resultadoTemporal);
             }

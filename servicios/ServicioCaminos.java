@@ -1,6 +1,8 @@
 package servicios;
+
 import java.util.*;
 
+import grafo.Arco;
 import grafo.Grafo;
 
 public class ServicioCaminos {
@@ -9,7 +11,7 @@ public class ServicioCaminos {
 	private int origen;
 	private int destino;
 	private int lim;
-	
+
 	public ServicioCaminos(Grafo<?> grafo, int origen, int destino, int lim) {
 		this.grafo = grafo;
 		this.origen = origen;
@@ -19,38 +21,37 @@ public class ServicioCaminos {
 
 	public List<List<Integer>> caminos() {
 		List<List<Integer>> caminos = new ArrayList<>();
-		List<Integer> caminoParcial = new ArrayList<>();
-		caminoParcial.add(origen);
-		generarCaminos(origen, caminoParcial, caminos);
+		List<Integer> caminoActual = new ArrayList<>();
+		Set<Integer> arcosVisitados = new HashSet<>();
+
+		buscarCaminos(origen, destino, caminoActual, caminos, arcosVisitados, 0, lim);
+
 		return caminos;
 	}
-	
-	private void generarCaminos(int verticeActual, List<Integer> caminoParcial, List<List<Integer>> caminos) {
-		if (verticeActual == destino) {
-			caminos.add(new ArrayList<>(caminoParcial));
-			return;
-		}
-		if (caminoParcial.size() - 1 == lim) { 
-			return;
-		}
-		for (Integer adyacente : obtenerAdyacentes(verticeActual)) {
-			if (!caminoParcial.contains(adyacente)) {
-				caminoParcial.add(adyacente);
-				generarCaminos(adyacente, caminoParcial, caminos);
-				caminoParcial.remove(caminoParcial.size() - 1);
+
+	private void buscarCaminos(int verticeActual, int verticeDestino, List<Integer> caminoActual,
+			List<List<Integer>> caminos, Set<Integer> arcosVisitados, int arcosRecorridos, int lim) {
+		caminoActual.add(verticeActual);
+
+		if (verticeActual == verticeDestino) {
+			caminos.add(new ArrayList<>(caminoActual));
+		} else if (arcosRecorridos < lim) {
+			Iterator<Integer> adyacentes = grafo.obtenerAdyacentes(verticeActual);
+
+			while (adyacentes.hasNext()) {
+				int adyacente = adyacentes.next();
+				Arco<?> arco = grafo.obtenerArco(verticeActual, adyacente);
+
+				if (!arcosVisitados.contains(arco.hashCode())) {
+					arcosVisitados.add(arco.hashCode());
+					buscarCaminos(adyacente, verticeDestino, caminoActual, caminos, arcosVisitados, arcosRecorridos + 1,
+							lim);
+					arcosVisitados.remove(arco.hashCode());
+				}
 			}
 		}
-	}
 
-	public Set<Integer> obtenerAdyacentes(Integer vertice) {
-        Iterator<Integer> it = this.grafo.obtenerAdyacentes(vertice);
-        Set<Integer> adyacentes = new HashSet<Integer>();
-        while (it.hasNext()) {
-            int adyacente = it.next();
-            adyacentes.add(adyacente);
-        }
-        return adyacentes;
-    }
-	
+		caminoActual.remove(caminoActual.size() - 1);
+	}
 
 }
